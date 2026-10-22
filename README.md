@@ -45,6 +45,7 @@ npm run preview
 | `daily.html` | 按本地日期轮换的练习题 |
 | `jokes.html` | 按本地日期轮换的段子 |
 | `board.html` | 线下活动告示。默认是空的 |
+| `books.html` | 驿站书房。导读在 `data/books.json`，单页构建到 `dist/books/` |
 | `about.html` | 计数、投稿约定、本地预览 |
 
 计算器在 `assets/calc.js`，自检是 `npm run check`。
@@ -55,6 +56,7 @@ npm run preview
 - 段子：`data/jokes.json`
 - 活动：`data/events.json` 的 `events` 数组。`examples` 里的条目不会展示
 - 区域和档口：`data/markets.json`。真实档口要写 `asOf` 和 `source`，并把 `example` 设为 `false`
+- 书房：`data/books.json`。只收原文已进入公有领域的书，导读自己写，不要贴仍受版权保护的中文译本。`npm run build` 会生成 `dist/books/<id>.html` 并写进 sitemap
 
 不要编造具体活动、商户和价格。器件参数以原厂手册为准，页面里的经验阈值都标了适用范围。
 

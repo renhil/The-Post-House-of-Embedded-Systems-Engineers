@@ -9,6 +9,7 @@ import {
   ledResistor,
   localDayNumber,
   pickIndex,
+  pickWeekIndex,
   pwmCompare,
   rcLowpass,
   resistorValue,
@@ -102,5 +103,9 @@ assert.equal(localDayNumber(day), 0);
 assert.equal(pickIndex(day, 10), 0);
 assert.equal(pickIndex(new Date(2026, 0, 2), 10), 1);
 assert.equal(pickIndex(new Date(2025, 11, 31), 10), 9);
+assert.equal(pickWeekIndex(new Date(2026, 0, 1), 12), 0);
+assert.equal(pickWeekIndex(new Date(2026, 0, 8), 12), 1);
+assert.equal(pickWeekIndex(new Date(2026, 9, 22), 12), 6);
+assert.equal(pickWeekIndex(new Date(2025, 11, 31), 12), 11);
 
 console.log("selfcheck ok");

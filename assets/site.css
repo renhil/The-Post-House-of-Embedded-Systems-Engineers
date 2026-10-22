@@ -528,6 +528,36 @@ details .tag { color: #7a4b12; background: rgba(231, 177, 90, 0.35); }
   border: 1px solid var(--line);
 }
 .joke-item.is-today { border-color: var(--wax); }
+
+.book-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.9rem; }
+.book-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--paper);
+  border-radius: 16px;
+  padding: 1rem 1.05rem 1.1rem;
+  box-shadow: var(--shadow);
+  min-height: 100%;
+}
+.book-card:hover { color: var(--ink); transform: translateY(-2px); }
+.book-card strong { font-size: 1.2rem; }
+.book-card em { font-style: normal; font-family: var(--mono); font-size: 0.82rem; color: #6d6256; }
+.book-card .blurb { color: #3c342c; }
+.book-card.is-week { box-shadow: inset 0 0 0 2px var(--wax), var(--shadow); }
+.book-card .num { font-family: var(--mono); color: #8a3b28; font-size: 0.78rem; }
+#week-book { margin-top: 0.9rem; }
+.pullquote {
+  margin: 0.4rem 0 1.1rem;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--wax);
+  background: var(--bg-raise);
+  border-radius: 0 12px 12px 0;
+}
+.pullquote p { margin: 0; }
+.pullquote .fine { color: var(--muted); }
 .joke-item p { margin: 0; font-size: 1.08rem; }
 
 pre.sample {
@@ -586,5 +616,6 @@ code { font-family: var(--mono); font-size: 0.88em; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .door:hover,
+  .book-card:hover,
   .toast { transition: none; transform: none; }
 }

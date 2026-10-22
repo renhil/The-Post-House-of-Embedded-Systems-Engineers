@@ -336,6 +336,13 @@ export function pickIndex(date, length) {
   return ((n % length) + length) % length;
 }
 
+/** 从 2026-01-01 起每 7 个本地日换一本，同一周内保持同一本。 */
+export function pickWeekIndex(date, length) {
+  if (length <= 0) return 0;
+  const week = Math.floor(localDayNumber(date) / 7);
+  return ((week % length) + length) % length;
+}
+
 export function formatDate(date) {
   const week = "日一二三四五六"[date.getDay()];
   return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 周${week}`;
