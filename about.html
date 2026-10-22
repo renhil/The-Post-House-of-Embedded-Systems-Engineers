@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>关于 · 嵌入式驿站</title>
+  <meta name="description" content="嵌入式驿站是什么、怎样在本地预览、怎样投稿活动与档口，以及访问人数是怎么数的。">
+  <link rel="canonical" href="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="嵌入式驿站">
+  <meta property="og:title" content="关于 · 嵌入式驿站">
+  <meta property="og:description" content="一个给深圳嵌入式工程师回访的静态驿站，目标先凑满 1000 位过客。">
+  <meta property="og:url" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/about.html">
+  <meta property="og:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="关于 · 嵌入式驿站">
+  <meta name="twitter:description" content="怎样预览、怎样投稿、人数怎么数。">
+  <meta name="twitter:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch.png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="about">
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html"><span class="seal" aria-hidden="true">驿</span><span class="brand-text"><strong>嵌入式驿站</strong><small>THE POST HOUSE</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav class="nav" id="site-nav">
+        <a data-nav="home" href="index.html">首页</a>
+        <a data-nav="tools" href="tools.html">工具</a>
+        <a data-nav="cheats" href="cheats.html">速查</a>
+        <a data-nav="market" href="market.html">华强北</a>
+        <a data-nav="daily" href="daily.html">每日题</a>
+        <a data-nav="jokes" href="jokes.html">段子</a>
+        <a data-nav="board" href="board.html">告示</a>
+        <a data-nav="about" href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+      <header class="page-head">
+        <p class="eyebrow">POST HOUSE</p>
+        <h1>关于这座驿站</h1>
+        <p class="lede">仓库名叫 The Post House of Embedded Systems Engineers。网站把它收成深圳硬件人能隔三差五打开的柜台：题、段子、工具、速查，再加上一份不肯编造的本地备忘。第一阶段想先见到 1000 位过客。</p>
+      </header>
+      <section class="sheet">
+        <h2>人数怎么数</h2>
+        <p>页面底部（首页在柜台卡片上）用<a href="https://busuanzi.ibruce.info/">不蒜子</a>数访问。不用注册，脚本从 <code>busuanzi.ibruce.info</code> 加载，国内一般开得了。它是第三方，能看到这次访问，本站自己不建账号、不存表单。</p>
+        <p>计数暂时连不上时，题和工具照常可用。过客数对应不蒜子的 site uv，翻阅数对应 site pv。目标看的是过客。</p>
+      </section>
+      <section class="sheet">
+        <h2>什么该写进来，什么别写</h2>
+        <ul>
+          <li>题目、段子、公式和采购方法，写清楚适用边界就行。</li>
+          <li>活动必须是核实过的。假例子只放在 <code>examples</code> 里。</li>
+          <li>档口必须带 <code>asOf</code> 和 <code>source</code>，并且 <code>example</code> 为 false。不要写价格。</li>
+          <li>不要把某一家公司的内部面试题当成「真题泄露」贴上来。</li>
+        </ul>
+      </section>
+      <section class="sheet">
+        <h2>改哪里</h2>
+        <ul>
+          <li><code>data/questions.json</code> 题库。同一天的题目由本地日期对题库长度取模决定，起点是 2026-01-01。</li>
+          <li><code>data/jokes.json</code> 段子，算法和题目一样。</li>
+          <li><code>data/events.json</code> 告示板。</li>
+          <li><code>data/markets.json</code> 华强北的区域和档口。</li>
+          <li><code>assets/calc.js</code> 计算器。改完跑 <code>npm run check</code>。</li>
+        </ul>
+      </section>
+      <section class="sheet">
+        <h2>本地预览</h2>
+        <p>需要 Node 20 以上。不要直接双击 html，浏览器会拦住页面去读 json。</p>
+        <pre class="sample">npm run preview</pre>
+        <p>然后打开 <code>http://127.0.0.1:4173</code>。构建产物在 <code>dist/</code>，这个目录不进 git。上线时由 GitHub Actions 再构建一次。</p>
+      </section>
+      <p class="fine">MIT License · 2026 renhil</p>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>嵌入式驿站 · 关于</p>
+      <p class="fine">过客 <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">…</span></span> · 翻阅 <span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">…</span></span> · 目标 1000</p>
+      <p class="fine"><a href="index.html">回柜台</a> · <a href="https://github.com/renhil/The-Post-House-of-Embedded-Systems-Engineers">仓库</a></p>
+    </div>
+  </footer>
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script type="module" src="assets/site.js"></script>
+</body>
+</html>

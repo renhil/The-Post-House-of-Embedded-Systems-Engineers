@@ -2,466 +2,144 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="嵌入式工程师驿站 — 在底层编程与无尽 Debug 的沙漠中，歇脚、交流、分享开源工具的数字驿站。">
-  <title>嵌入式工程师驿站 · The Post-House of Embedded Systems Engineers</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-deep: #0a0e14;
-      --bg-card: #121820;
-      --bg-card-hover: #181f2a;
-      --border: #2a3544;
-      --text: #c8d0dc;
-      --text-muted: #7a8699;
-      --amber: #e8a54b;
-      --amber-dim: #b87d2e;
-      --amber-glow: rgba(232, 165, 75, 0.15);
-      --green: #3dd68c;
-      --mono: "JetBrains Mono", monospace;
-      --sans: "Noto Sans SC", system-ui, sans-serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--sans);
-      background: var(--bg-deep);
-      color: var(--text);
-      line-height: 1.7;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* circuit grid background */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 48px 48px;
-      opacity: 0.18;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--amber-glow), transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 1.5rem 4rem;
-    }
-
-    /* ── header ── */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 3rem;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      text-decoration: none;
-      color: var(--text);
-    }
-
-    .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--amber-glow);
-      border: 1px solid var(--amber-dim);
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      font-size: 1.1rem;
-    }
-
-    .logo-text {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--amber);
-    }
-
-    .lang-toggle {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.35rem 0.75rem;
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .lang-toggle:hover {
-      border-color: var(--amber-dim);
-      color: var(--amber);
-    }
-
-    /* ── hero ── */
-    .hero { margin-bottom: 3.5rem; }
-
-    .terminal-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-bottom: none;
-      border-radius: 10px 10px 0 0;
-      padding: 0.6rem 1rem;
-    }
-
-    .dot { width: 10px; height: 10px; border-radius: 50%; }
-    .dot-r { background: #ff5f57; }
-    .dot-y { background: #febc2e; }
-    .dot-g { background: #28c840; }
-
-    .terminal-title {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-left: 0.5rem;
-    }
-
-    .terminal-body {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 0 0 10px 10px;
-      padding: 2rem 2rem 2.2rem;
-    }
-
-    .prompt {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: var(--green);
-      margin-bottom: 0.5rem;
-    }
-
-    .prompt span { color: var(--amber); }
-
-    h1 {
-      font-size: clamp(1.6rem, 5vw, 2.4rem);
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 1rem;
-      color: #eef2f8;
-    }
-
-    h1 em {
-      font-style: normal;
-      color: var(--amber);
-    }
-
-    .hero-desc {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 640px;
-      margin-bottom: 1.8rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      font-weight: 600;
-      text-decoration: none;
-      padding: 0.65rem 1.2rem;
-      border-radius: 8px;
-      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-
-    .btn-primary {
-      background: var(--amber);
-      color: var(--bg-deep);
-      box-shadow: 0 4px 20px rgba(232, 165, 75, 0.25);
-    }
-
-    .btn-primary:hover {
-      background: #f0b45c;
-      box-shadow: 0 6px 28px rgba(232, 165, 75, 0.35);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--amber-dim);
-      color: var(--amber);
-    }
-
-    /* ── status line ── */
-    .status {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 1.5rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .status .ok { color: var(--green); }
-
-    /* ── features ── */
-    .section-label {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--amber-dim);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.4rem 1.5rem;
-      transition: background 0.2s, border-color 0.2s, transform 0.15s;
-    }
-
-    .card:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--amber-dim);
-      transform: translateY(-3px);
-    }
-
-    .card-icon {
-      font-size: 1.5rem;
-      margin-bottom: 0.7rem;
-    }
-
-    .card h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #eef2f8;
-      margin-bottom: 0.45rem;
-    }
-
-    .card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ── quote ── */
-    .quote-block {
-      background: var(--bg-card);
-      border-left: 3px solid var(--amber);
-      border-radius: 0 10px 10px 0;
-      padding: 1.5rem 1.8rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .quote-block p {
-      font-size: 1rem;
-      color: var(--text);
-      font-style: italic;
-    }
-
-    .quote-block cite {
-      display: block;
-      margin-top: 0.8rem;
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-style: normal;
-    }
-
-    /* ── footer ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding-top: 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    footer p {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    footer a {
-      color: var(--amber);
-      text-decoration: none;
-    }
-
-    footer a:hover { text-decoration: underline; }
-
-    /* ── language visibility ── */
-    [data-lang="en"] { display: none; }
-    body.en [data-lang="zh"] { display: none; }
-    body.en [data-lang="en"] { display: revert; }
-    body.en .card p[data-lang="en"],
-    body.en .hero-desc[data-lang="en"],
-    body.en .quote-block p[data-lang="en"] { display: block; }
-    body.en h1[data-lang="en"] { display: block; }
-    body.en .card h3[data-lang="en"] { display: block; }
-    body.en .section-label[data-lang="en"] { display: block; }
-    body.en .status [data-lang="en"] { display: inline; }
-
-    @media (max-width: 600px) {
-      .terminal-body { padding: 1.4rem; }
-      header { margin-bottom: 2rem; }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>嵌入式驿站 · 深圳硬件人的夜班柜台</title>
+  <meta name="description" content="给深圳嵌入式和硬件工程师的驿站。每天一题、一句段子，外加电阻色环、波特率、定时器等小工具，协议速查，以及一份不编价格的华强北备忘。">
+  <link rel="canonical" href="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="嵌入式驿站">
+  <meta property="og:title" content="嵌入式驿站 · 深圳硬件人的夜班柜台">
+  <meta property="og:description" content="每天一题、一句段子，还有色环、波特率和定时器计算器。华强北的价格我们不编。">
+  <meta property="og:url" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/">
+  <meta property="og:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="嵌入式驿站 · 深圳硬件人的夜班柜台">
+  <meta name="twitter:description" content="每天一题、一句段子，还有色环、波特率和定时器计算器。">
+  <meta name="twitter:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch.png">
+  <link rel="stylesheet" href="assets/site.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "嵌入式驿站",
+    "alternateName": "The Post House of Embedded Systems Engineers",
+    "url": "https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/",
+    "inLanguage": "zh-CN",
+    "description": "深圳嵌入式与硬件工程师的夜班驿站：每日一题、工具、速查和华强北备忘。"
+  }
+  </script>
 </head>
-<body>
-
-<div class="wrap">
-
-  <header>
-    <a class="logo" href="#">
-      <div class="logo-icon">⚙</div>
-      <span class="logo-text">POST-HOUSE / EMBEDDED</span>
-    </a>
-    <button class="lang-toggle" id="langBtn" aria-label="切换语言">EN / 中文</button>
+<body data-page="home">
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="seal" aria-hidden="true">驿</span>
+        <span class="brand-text"><strong>嵌入式驿站</strong><small>THE POST HOUSE</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav class="nav" id="site-nav">
+        <a data-nav="home" href="index.html">首页</a>
+        <a data-nav="tools" href="tools.html">工具</a>
+        <a data-nav="cheats" href="cheats.html">速查</a>
+        <a data-nav="market" href="market.html">华强北</a>
+        <a data-nav="daily" href="daily.html">每日题</a>
+        <a data-nav="jokes" href="jokes.html">段子</a>
+        <a data-nav="board" href="board.html">告示</a>
+        <a data-nav="about" href="about.html">关于</a>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero">
-    <div class="terminal-bar">
-      <span class="dot dot-r"></span>
-      <span class="dot dot-y"></span>
-      <span class="dot dot-g"></span>
-      <span class="terminal-title">firmware_shell — embedded-inn</span>
-    </div>
-    <div class="terminal-body">
-      <p class="prompt"><span>root@posthouse</span>:~$ ./welcome.sh</p>
+  <main id="main">
+    <div class="wrap">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">SHENZHEN · EMBEDDED · NIGHT SHIFT</p>
+          <h1>嵌入式驿站</h1>
+          <p class="lede">底层还在转，人可以先坐一会儿。这里给深圳的嵌入式和硬件工程师留了题、工具、速查和段子。华强北的价格、档口和活动，没核实过的一律不写。</p>
+          <div class="hero-actions">
+            <a class="btn btn-wax" href="daily.html">拆开今日的题</a>
+            <a class="btn btn-ghost" href="tools.html">坐到工具台</a>
+            <button class="btn btn-ghost" id="copy-today" type="button">抄一份今日卡片</button>
+          </div>
+        </div>
+        <aside class="counter-card" aria-label="访问计数">
+          <div class="postmark" aria-hidden="true">SHENZHEN<br>驿<br>HQB</div>
+          <p class="kicker">柜台人数</p>
+          <p class="counter-num"><span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">—</span></span><small>位过客</small></p>
+          <div class="bar" aria-hidden="true"><span id="goal-bar"></span></div>
+          <p class="fine">目标 1000 · 翻阅 <span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">—</span></span> 次</p>
+          <p class="fine" id="counter-state">正在问不蒜子</p>
+        </aside>
+      </section>
 
-      <h1 data-lang="zh">欢迎来到<br><em>嵌入式工程师驿站</em></h1>
-      <h1 data-lang="en">Welcome to<br><em>The Post-House of Embedded Engineers</em></h1>
-
-      <p class="hero-desc" data-lang="zh">
-        在底层编程与无尽 Debug 的广袤沙漠中，这里是你的数字驿站。
-        歇歇脚，交流技术洞见，分享开源工具，为下一个硬件项目寻找灵感。
-      </p>
-      <p class="hero-desc" data-lang="en">
-        In the vast desert of bare-metal programming and endless debugging,
-        this is your digital post-house — rest, share insights, open-source tools,
-        and find inspiration for your next hardware project.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/renhil/The-Post-House-of-Embedded-Systems-Engineers" target="_blank" rel="noopener">
-          ⬡ GitHub 仓库
-        </a>
-        <a class="btn btn-ghost" href="https://github.com/renhil/The-Post-House-of-Embedded-Systems-Engineers/issues" target="_blank" rel="noopener">
-          ✎ 参与讨论
-        </a>
+      <div class="term" aria-hidden="true">
+        <div class="term-bar"><i class="dot dot-r"></i><i class="dot dot-y"></i><i class="dot dot-g"></i> root@posthouse:~</div>
+        <p><span class="prompt">$</span> ./welcome.sh</p>
+        <p>柜台值守中 · 固件 v1.0.0 · 咖啡还热 · 不导入被墙的字体</p>
       </div>
 
-      <p class="status">
-        <span data-lang="zh">系统状态：<span class="ok">● ONLINE</span> &nbsp;|&nbsp; 固件版本：v0.1.0 &nbsp;|&nbsp; 咖啡：☕ 无限续杯</span>
-        <span data-lang="en">Status: <span class="ok">● ONLINE</span> &nbsp;|&nbsp; Firmware: v0.1.0 &nbsp;|&nbsp; Coffee: ☕ bottomless</span>
-      </p>
-    </div>
-  </section>
+      <section class="today" aria-label="今日柜台">
+        <article class="ticket" id="today-question">
+          <p class="kicker">信件 · 每日一题</p>
+          <p class="ticket-meta" data-field="date">日期装订中</p>
+          <h2 data-field="title">正在翻今日的题目…</h2>
+          <p class="ticket-meta" data-field="meta"></p>
+          <p><a href="daily.html">去对答案</a></p>
+        </article>
+        <article class="ticket" id="today-joke">
+          <p class="kicker">便签 · 今日段子</p>
+          <p class="ticket-meta" data-field="date"></p>
+          <h2 data-field="text">正在抽一张便签…</h2>
+          <p><a href="jokes.html">整本都在这</a></p>
+        </article>
+      </section>
 
-  <p class="section-label" data-lang="zh">// 驿站能做什么</p>
-  <p class="section-label" data-lang="en">// what this post-house offers</p>
+      <h2 class="section-title">柜台上有什么</h2>
+      <section class="doors">
+        <a class="door" href="tools.html"><span class="num">01</span><strong>工具台</strong><span>色环、波特率误差、定时器 PSC/ARR、分压、LED、I²C 上拉、位查看。浏览器里算完就走。</span></a>
+        <a class="door" href="cheats.html"><span class="num">02</span><strong>速查</strong><span>UART、I²C、SPI、CAN、电平和调试口。先把该想起来的想起来，再去翻手册。</span></a>
+        <a class="door" href="market.html"><span class="num">03</span><strong>华强北备忘</strong><span>料单怎么写、到了怎么问、拿回来怎么看。不推荐档口，不报价格。</span></a>
+        <a class="door" href="daily.html"><span class="num">04</span><strong>每日一题</strong><span>按日期轮换的练习题。不是任何公司的真题。</span></a>
+        <a class="door" href="jokes.html"><span class="num">05</span><strong>段子</strong><span>焊完板子发给同事的那种。每天换一句，也可以整本翻。</span></a>
+        <a class="door" href="board.html"><span class="num">06</span><strong>告示板</strong><span>深圳线下的硬件局。板子现在是空的，空着比编一场聚会诚实。</span></a>
+      </section>
 
-  <section class="features">
-    <div class="card">
-      <div class="card-icon">🛋</div>
-      <h3 data-lang="zh">休憩充电</h3>
-      <h3 data-lang="en">Rest &amp; Recharge</h3>
-      <p data-lang="zh">从寄存器泥潭里抽身，在社区里喘口气，找回写代码的乐趣。</p>
-      <p data-lang="en">Step away from register hell. Catch your breath and rediscover the joy of building.</p>
+      <h2 class="section-title">为什么明天还来</h2>
+      <section class="reasons">
+        <article class="reason">
+          <h3>题和段子会换</h3>
+          <p class="muted">同一天看到的是同一封信，过了零点就换下一封。抄走发群，链接会带回驿站。</p>
+        </article>
+        <article class="reason">
+          <h3>工具比收藏夹快</h3>
+          <p class="muted">色环和波特率这种东西，一个月用一次，每次都不想重装软件。</p>
+        </article>
+        <article class="reason">
+          <h3>可以自己往上贴</h3>
+          <p class="muted">活动、档口、题目都在 data 目录里。核实过再提 PR，示例数据不会被当成真的。</p>
+        </article>
+      </section>
+      <noscript><p class="note">每日题目和计数需要 JavaScript。速查页的表格不依赖脚本。</p></noscript>
     </div>
-    <div class="card">
-      <div class="card-icon">🔧</div>
-      <h3 data-lang="zh">技术交流</h3>
-      <h3 data-lang="en">Tech Exchange</h3>
-      <p data-lang="zh">分享 BSP、驱动、RTOS 踩坑经验，与同行互相点亮调试之路。</p>
-      <p data-lang="en">Share BSP, driver, and RTOS war stories. Light the way for fellow debuggers.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">📦</div>
-      <h3 data-lang="zh">开源工具</h3>
-      <h3 data-lang="en">Open-Source Tools</h3>
-      <p data-lang="zh">汇集实用脚本、库和项目模板，少造轮子，多造好东西。</p>
-      <p data-lang="en">Collect scripts, libraries, and project templates — less reinvention, more building.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">💡</div>
-      <h3 data-lang="zh">硬件灵感</h3>
-      <h3 data-lang="en">Hardware Inspiration</h3>
-      <p data-lang="zh">浏览他人的固件冒险与硬件 hack，点燃你下一个项目的火花。</p>
-      <p data-lang="en">Browse firmware adventures and hardware hacks to spark your next project.</p>
-    </div>
-  </section>
+  </main>
 
-  <blockquote class="quote-block">
-    <p data-lang="zh">拉把椅子坐下，喝杯咖啡，让我们一起创造点不可思议的东西吧！</p>
-    <p data-lang="en">Pull up a chair, grab a cup of coffee, and let's build something amazing together!</p>
-    <cite>— The Post-House of Embedded Systems Engineers</cite>
-  </blockquote>
-
-  <footer>
-    <p>© 2026 &nbsp;<a href="https://github.com/renhil" target="_blank" rel="noopener">renhil</a> &nbsp;·&nbsp; Open Source</p>
-    <p><a href="https://github.com/renhil/The-Post-House-of-Embedded-Systems-Engineers" target="_blank" rel="noopener">github.com/renhil/The-Post-House-of-Embedded-Systems-Engineers</a></p>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>嵌入式驿站 · The Post House of Embedded Systems Engineers</p>
+      <p class="fine">人数记在上面那张柜台卡片上。计数由不蒜子提供，没有账号。</p>
+      <p class="fine"><a href="https://github.com/renhil/The-Post-House-of-Embedded-Systems-Engineers">GitHub 仓库</a> · <a href="about.html">关于与投稿</a> · MIT</p>
+    </div>
   </footer>
-
-</div>
-
-<script>
-  const btn = document.getElementById('langBtn');
-  const saved = localStorage.getItem('lang');
-  if (saved === 'en') document.body.classList.add('en');
-
-  btn.addEventListener('click', () => {
-    document.body.classList.toggle('en');
-    localStorage.setItem('lang', document.body.classList.contains('en') ? 'en' : 'zh');
-  });
-</script>
-
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script type="module" src="assets/site.js"></script>
 </body>
 </html>
