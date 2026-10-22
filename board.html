@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>告示板 · 嵌入式驿站</title>
+  <meta name="description" content="深圳嵌入式和硬件线下活动告示板。没有核实过的场次不会被写成真的，欢迎用数据文件投稿。">
+  <link rel="canonical" href="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/board.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="嵌入式驿站">
+  <meta property="og:title" content="告示板 · 嵌入式驿站">
+  <meta property="og:description" content="深圳线下硬件局。空着的告示板比编出来的 meetup 诚实。">
+  <meta property="og:url" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/board.html">
+  <meta property="og:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="告示板 · 嵌入式驿站">
+  <meta name="twitter:description" content="深圳线下硬件局。没核实的场次不会出现在这里。">
+  <meta name="twitter:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch.png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="board">
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html"><span class="seal" aria-hidden="true">驿</span><span class="brand-text"><strong>嵌入式驿站</strong><small>THE POST HOUSE</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav class="nav" id="site-nav">
+        <a data-nav="home" href="index.html">首页</a>
+        <a data-nav="tools" href="tools.html">工具</a>
+        <a data-nav="cheats" href="cheats.html">速查</a>
+        <a data-nav="market" href="market.html">华强北</a>
+        <a data-nav="daily" href="daily.html">每日题</a>
+        <a data-nav="jokes" href="jokes.html">段子</a>
+        <a data-nav="board" href="board.html">告示</a>
+        <a data-nav="about" href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+      <header class="page-head">
+        <p class="eyebrow">COUNTER 06</p>
+        <h1>告示板</h1>
+        <p class="lede">给深圳的线下硬件局、拆机夜、焊接半日留位置。第一版故意是空的。编一个不存在的周六下午，比没有告示更耽误人。</p>
+      </header>
+      <div id="event-list" class="card-grid"></div>
+      <section class="sheet">
+        <h2>怎么贴一张真告示</h2>
+        <ol>
+          <li>确认日期、地点、链接现在仍然有效，过期的不要贴。</li>
+          <li>把条目加进 <code>data/events.json</code> 的 <code>events</code> 数组，不要放进 <code>examples</code>。</li>
+          <li>提一个 PR，或者用仓库里的「投稿一个线下活动」issue，让会改文件的人代贴。</li>
+        </ol>
+        <p>格式示例（假的）：</p>
+        <pre class="sample" id="event-example"></pre>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>嵌入式驿站 · 告示板</p>
+      <p class="fine">过客 <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">…</span></span> · 翻阅 <span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">…</span></span> · 目标 1000</p>
+      <p class="fine"><a href="index.html">回柜台</a> · <a href="about.html">关于</a></p>
+    </div>
+  </footer>
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script type="module" src="assets/site.js"></script>
+</body>
+</html>

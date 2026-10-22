@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>速查 · 嵌入式驿站</title>
+  <meta name="description" content="嵌入式常用速查：逻辑电平、阻容封装、UART、I²C、SPI、CAN、调试口和几个每天会用到的公式。具体阈值以原厂手册为准。">
+  <link rel="canonical" href="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/cheats.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="嵌入式驿站">
+  <meta property="og:title" content="速查 · 嵌入式驿站">
+  <meta property="og:description" content="协议、电平和调试口，先回忆再翻手册。">
+  <meta property="og:url" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/cheats.html">
+  <meta property="og:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="速查 · 嵌入式驿站">
+  <meta name="twitter:description" content="协议、电平和调试口，先回忆再翻手册。">
+  <meta name="twitter:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch.png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="cheats">
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html"><span class="seal" aria-hidden="true">驿</span><span class="brand-text"><strong>嵌入式驿站</strong><small>THE POST HOUSE</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav class="nav" id="site-nav">
+        <a data-nav="home" href="index.html">首页</a>
+        <a data-nav="tools" href="tools.html">工具</a>
+        <a data-nav="cheats" href="cheats.html">速查</a>
+        <a data-nav="market" href="market.html">华强北</a>
+        <a data-nav="daily" href="daily.html">每日题</a>
+        <a data-nav="jokes" href="jokes.html">段子</a>
+        <a data-nav="board" href="board.html">告示</a>
+        <a data-nav="about" href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap layout">
+      <nav class="toc" aria-label="速查目录">
+        <a href="#level">电平</a>
+        <a href="#passives">阻容</a>
+        <a href="#uart">UART</a>
+        <a href="#i2c">I²C</a>
+        <a href="#spi">SPI</a>
+        <a href="#can">CAN</a>
+        <a href="#debug">调试口</a>
+        <a href="#formula">公式</a>
+        <a href="#c">C 语言</a>
+      </nav>
+      <div>
+        <header class="page-head">
+          <p class="eyebrow">COUNTER 02</p>
+          <h1>速查</h1>
+          <p>这页负责让你在翻手册之前先想起来。表里的阈值是常见数量级，不是某一颗料的保证值。设计、来料和出问题时，以那份手册的电气特性表为准。</p>
+        </header>
+
+        <section class="sheet" id="level">
+          <h2>逻辑电平</h2>
+          <div class="table-wrap">
+            <table class="data">
+              <thead><tr><th>说法</th><th>先记住的量级</th><th>别想当然的地方</th></tr></thead>
+              <tbody>
+                <tr><td>5 V TTL</td><td>输出高往往只保证到 2.4 V 附近，输入高常见阈值约 2.0 V</td><td>能被 5 V TTL 驱动，不等于能直接进 3.3 V 的脚</td></tr>
+                <tr><td>5 V CMOS</td><td>输出接近电源轨，输入高常见约 0.7 × VDD</td><td>阈值随 VDD 变，不要拿 5 V 的阈值去套 3.3 V</td></tr>
+                <tr><td>3.3 V CMOS</td><td>很多输入高阈值在 2 V 上下</td><td>「5 V 容忍」只属于手册点名的脚，而且常有条件</td></tr>
+                <tr><td>1.8 V</td><td>输入高常见约 0.65 × VDD</td><td>和 3.3 V 对接通常要电平转换，不要靠「有时能读到」</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">推挽能主动拉高拉低。开漏只能拉低，高电平靠上拉，才能做线与。I²C 必须是开漏加上拉。</p>
+        </section>
+
+        <section class="sheet" id="passives">
+          <h2>电阻电容，先把话问全</h2>
+          <div class="table-wrap">
+            <table class="data">
+              <thead><tr><th>英制称呼</th><th>大约尺寸</th><th>手焊时的体感</th></tr></thead>
+              <tbody>
+                <tr><td>0402</td><td>约 1.0 × 0.5 mm</td><td>镊子和放大镜的活，样品阶段能少用就少用</td></tr>
+                <tr><td>0603</td><td>约 1.6 × 0.8 mm</td><td>手板最常见的妥协</td></tr>
+                <tr><td>0805</td><td>约 2.0 × 1.2 mm</td><td>好焊，板子面积会说话</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>电容只说 10 µF 不够。还要耐压、材质（X7R / X5R / Y5V 差很多）、封装、温度。</li>
+            <li>去耦的经验是：每对电源脚附近一颗 100 nF，电源入口再放更大的储能电容。远距离的一排电容替代不了脚边那颗。</li>
+            <li>0 Ω 是可焊接的跳线，用来断开电源、单点接地、方便改 BOM。它有电流限制，不是无限粗的导线。</li>
+          </ul>
+        </section>
+
+        <section class="sheet" id="uart">
+          <h2>UART</h2>
+          <p>一帧通常是：起始位（低）、数据位从 LSB 开始、可选校验位、停止位（高）。空闲为高。字节序是另一层：多字节整数谁先走，要写进协议，不要靠结构体内存顺序。</p>
+          <ul>
+            <li>两边都要地。只接 TX/RX，回地靠「机箱碰上了」，会偶发。</li>
+            <li>TX 接对方 RX。交叉这件事，丝印有时会用主设备视角，有时用本端口视角。</li>
+            <li>波特率误差单边大约 2% 是常用经验，不是容许你两边各偏 2% 还指望中间采样点很舒服。算误差用<a href="tools.html">工具台</a>。</li>
+            <li>不定长包可以用空闲线当边界，但仍要有帧头、长度或校验。</li>
+          </ul>
+        </section>
+
+        <section class="sheet" id="i2c">
+          <h2>I²C</h2>
+          <div class="table-wrap">
+            <table class="data">
+              <thead><tr><th>模式</th><th>速率量级</th><th>上升时间量级</th></tr></thead>
+              <tbody>
+                <tr><td>Standard</td><td>100 kHz</td><td>1000 ns</td></tr>
+                <tr><td>Fast</td><td>400 kHz</td><td>300 ns</td></tr>
+                <tr><td>Fast-mode Plus</td><td>1 MHz</td><td>120 ns</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>起始：SCL 为高时 SDA 下降。停止：SCL 为高时 SDA 上升。数据只在 SCL 为低时改变。</li>
+            <li>7 位地址后面再跟 1 位读写。手册里的地址有的已经左移过，有的没有，差一位就会 NACK。</li>
+            <li>上拉太大上升慢，太小低电平抬高。估算放在<a href="tools.html">工具台</a>，结论看波形。</li>
+            <li>从机可能拉住 SCL，这是时钟拉伸。模拟主机不能不看 SCL 就继续。</li>
+          </ul>
+        </section>
+
+        <section class="sheet" id="spi">
+          <h2>SPI 四种模式</h2>
+          <div class="table-wrap">
+            <table class="data">
+              <thead><tr><th>模式</th><th>CPOL</th><th>CPHA</th><th>空闲时钟</th><th>采样</th></tr></thead>
+              <tbody>
+                <tr><td>0</td><td>0</td><td>0</td><td>低</td><td>第一个沿，上升</td></tr>
+                <tr><td>1</td><td>0</td><td>1</td><td>低</td><td>第二个沿，下降</td></tr>
+                <tr><td>2</td><td>1</td><td>0</td><td>高</td><td>第一个沿，下降</td></tr>
+                <tr><td>3</td><td>1</td><td>1</td><td>高</td><td>第二个沿，上升</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>模式 0 和模式 3 都在上升沿采样，但空闲电平相反，差一个沿就全错。片选是事务边界，单从机也建议留着。主从的 MSB/LSB 方向也要一致。</p>
+        </section>
+
+        <section class="sheet" id="can">
+          <h2>CAN</h2>
+          <ul>
+            <li>差分两根：CANH、CANL。终端电阻跨在这两根之间，经典是两端各 120 Ω，不是上拉到电源。</li>
+            <li>中间节点不要再并联终端，并联后驱动器发不出足够的显性电平。</li>
+            <li>隐性靠终端电阻把差分拉回，显性由驱动器拉开。没有终端时短线也许能通，长了就错帧。</li>
+            <li>还要共地或至少有明确的共模范围。只甩两根双绞线、两端电源完全隔离时，收发器的共模范围要单独看手册。</li>
+          </ul>
+        </section>
+
+        <section class="sheet" id="debug">
+          <h2>调试口先接这几根</h2>
+          <div class="table-wrap">
+            <table class="data">
+              <thead><tr><th>信号</th><th>干什么</th></tr></thead>
+              <tbody>
+                <tr><td>SWDIO</td><td>数据</td></tr>
+                <tr><td>SWCLK</td><td>时钟</td></tr>
+                <tr><td>GND</td><td>没有这根，前面两根都是摆设</td></tr>
+                <tr><td>VTref / VCC</td><td>告诉调试器目标板的电平，不是给板子供电的承诺</td></tr>
+                <tr><td>NRST</td><td>很多「能供电但下载口无响应」是复位脚被拉住或电容过大</td></tr>
+                <tr><td>SWO</td><td>可选，跟踪输出。没有它，普通下载不受影响</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>JTAG 比 SWD 多 TMS、TDI、TDO。引脚复用成了 GPIO 之后，有的芯片要靠复位时序才能再连上调试器，先查手册的调试脚复位状态。</p>
+        </section>
+
+        <section class="sheet" id="formula">
+          <h2>几个公式</h2>
+          <ul>
+            <li>欧姆定律：V = I × R。电阻功耗 P = I² × R = V² / R。</li>
+            <li>分压：Vout = Vin × R2 / (R1 + R2)，R1 在上面。</li>
+            <li>LED 限流：R = (Vs − Vf) / If，电阻功耗用 If² × R 核对。</li>
+            <li>RC 低通：τ = R × C，−3 dB 频率约 1 / (2πRC)。</li>
+            <li>dBm 到毫瓦：mW = 10^(dBm / 10)。0 dBm 是 1 mW。</li>
+            <li>定时器更新频率（边沿对齐）：f = fCLK / ((PSC+1) × (ARR+1))。</li>
+          </ul>
+          <p>数字可以丢给<a href="tools.html">工具台</a>。公式在，单位仍要自己看一眼。</p>
+        </section>
+
+        <section class="sheet" id="c">
+          <h2>C 语言，上板之前</h2>
+          <ul>
+            <li><code>volatile</code> 阻止编译器把访问优化掉，不提供原子性。</li>
+            <li>结构体有填充。线上协议不要直接 <code>memcpy</code> 整个结构体，除非两边的布局被测试锁死。</li>
+            <li>小端机器的内存图像不是「高字节在前」的协议。</li>
+            <li>中断和主循环共享的读-改-写，要用临界区包起来，或者改成单写者。</li>
+            <li>栈、堆、DMA 缓冲是三笔不同的账。<code>const</code> 大表是否占 RAM，看 map，不看心情。</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>嵌入式驿站 · 速查</p>
+      <p class="fine">过客 <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">…</span></span> · 翻阅 <span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">…</span></span> · 目标 1000</p>
+      <p class="fine"><a href="index.html">回柜台</a> · <a href="tools.html">去算一下</a></p>
+    </div>
+  </footer>
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script type="module" src="assets/site.js"></script>
+</body>
+</html>

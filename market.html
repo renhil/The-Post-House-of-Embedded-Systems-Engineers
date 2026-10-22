@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>华强北备忘 · 嵌入式驿站</title>
+  <meta name="description" content="去深圳华强北之前的料单、问法、验货和替代料备忘。不列价格，不把没核实的档口写成推荐。">
+  <link rel="canonical" href="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/market.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="嵌入式驿站">
+  <meta property="og:title" content="华强北备忘 · 嵌入式驿站">
+  <meta property="og:description" content="料单、问法、验货。不编价格，不编档口。">
+  <meta property="og:url" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/market.html">
+  <meta property="og:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="华强北备忘 · 嵌入式驿站">
+  <meta name="twitter:description" content="料单、问法、验货。不编价格，不编档口。">
+  <meta name="twitter:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch.png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="market">
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html"><span class="seal" aria-hidden="true">驿</span><span class="brand-text"><strong>嵌入式驿站</strong><small>THE POST HOUSE</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav class="nav" id="site-nav">
+        <a data-nav="home" href="index.html">首页</a>
+        <a data-nav="tools" href="tools.html">工具</a>
+        <a data-nav="cheats" href="cheats.html">速查</a>
+        <a data-nav="market" href="market.html">华强北</a>
+        <a data-nav="daily" href="daily.html">每日题</a>
+        <a data-nav="jokes" href="jokes.html">段子</a>
+        <a data-nav="board" href="board.html">告示</a>
+        <a data-nav="about" href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+      <header class="page-head">
+        <p class="eyebrow">COUNTER 03 · 福田</p>
+        <h1>华强北备忘</h1>
+        <p class="lede">这不是档口黄页。价格一周就变，档口也会换人，写上去就是坑。下面是出门前和柜台前用得上的方法。地点数据来自 <code>data/markets.json</code>，示例不会被当成真档口。</p>
+      </header>
+
+      <section class="sheet">
+        <h2>出门前把料单写成人话</h2>
+        <p>每一行至少这些字段。缺一个，现场就得靠记忆，记忆会在二楼拐弯时丢。</p>
+        <ul>
+          <li>完整型号，不是「那个 STM32」。带上封装、温度等级、速度或容量。</li>
+          <li>关键参数：电阻的阻值和精度，电容的容值、耐压、材质，电感的饱和电流。</li>
+          <li>数量，以及少几颗还能不能做实验。</li>
+          <li>可接受的替代：哪些参数不能让，哪些可以让。</li>
+          <li>要不要发票、要不要同批次、能不能接受散料。</li>
+        </ul>
+        <p>只写「10 µF 电容」等于没写。X5R 和 Y5V 在温度面前不是一种东西，耐压不够时容值还会自己塌。</p>
+      </section>
+
+      <section class="sheet">
+        <h2>柜台前可以这样问</h2>
+        <p>下面是问法，不是报价，也不是在评价任何一家店。</p>
+        <ul>
+          <li>有没有这个完整型号？封装是哪一种？</li>
+          <li>是原装、散新，还是拆机？丝印能看吗？</li>
+          <li>同批次有多少？日期码在哪？</li>
+          <li>没有这个型号的话，你说的替代差在哪个参数？</li>
+          <li>能开什么票据？不能开就自己记住，别事后补想象。</li>
+        </ul>
+        <p>对方回答得很满、又不肯让你看丝印和包装时，把这颗从「关键料」降级成「先拿去打样、不当量产」。关键料走能追溯的渠道，不在人群里赌。</p>
+      </section>
+
+      <section class="sheet">
+        <h2>拿在手里看什么</h2>
+        <ul>
+          <li>丝印是否模糊、重印、被打磨。打磨过的表面像被砂纸吻过。</li>
+          <li>引脚是否翻新过：重新镀锡、共面很差、氧化和崭新同时出现。</li>
+          <li>编带孔距是否整齐，标签日期和料盘是否互相打架。</li>
+          <li>电阻可以抽测阻值。电容若身边有表，看数量级，不要指望手持表给出精确 ESR。</li>
+          <li>贵的芯片回实验室再对手册里的丝印规则和第一个寄存器。手册规则以原厂为准。</li>
+        </ul>
+        <p>「散新」「拆机」「翻新」是来源不同，不是道德形容词。实验可以冒这个险，量产和安全相关的料不要冒。</p>
+      </section>
+
+      <section class="sheet">
+        <h2>替代料只替参数，不替名字</h2>
+        <p>封装一样只说明焊得上去。还要看耐压、精度、温度系数、速度等级、工作温度、驱动能力和是否引脚兼容。引脚兼容要一脚一脚对，不要只看「也是 SOP-8」。</p>
+      </section>
+
+      <h2 class="section-title">地点</h2>
+      <div id="area-list" class="card-grid"><p class="empty">地点加载中…</p></div>
+
+      <h2 class="section-title">档口</h2>
+      <div id="stall-list"><p class="empty">档口加载中…</p></div>
+
+      <section class="sheet">
+        <h2>数据长什么样</h2>
+        <p>真实档口放进 <code>data/markets.json</code> 的 <code>stalls</code>，把 <code>example</code> 设为 <code>false</code>，并写上 <code>asOf</code> 和 <code>source</code>。下面这条是假的，页面不会拿它当推荐。</p>
+        <pre class="sample" id="stall-example"></pre>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>嵌入式驿站 · 华强北备忘</p>
+      <p class="fine">过客 <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">…</span></span> · 翻阅 <span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">…</span></span> · 目标 1000</p>
+      <p class="fine"><a href="index.html">回柜台</a> · <a href="about.html">怎么投稿</a></p>
+    </div>
+  </footer>
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script type="module" src="assets/site.js"></script>
+</body>
+</html>

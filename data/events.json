@@ -1,0 +1,16 @@
+{
+  "disclaimer": "告示板只展示 events 数组里、且 example 不为 true 的条目。下面的 examples 是数据格式，不是真实活动。请不要把没核实过的时间、地点、主办方写进 events。",
+  "events": [],
+  "examples": [
+    {
+      "example": true,
+      "title": "周六下午焊台开放日",
+      "date": "2026-11-07",
+      "time": "14:00–17:00",
+      "place": "南山区某创客空间（改成真实地址）",
+      "url": "https://example.com/event",
+      "tags": ["线下", "焊接"],
+      "note": "这是格式示例。example 为 true 的条目不会进入告示板。"
+    }
+  ]
+}

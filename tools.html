@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>工具台 · 嵌入式驿站</title>
+  <meta name="description" content="浏览器里的嵌入式小工具：电阻色环互查、STM32 风格波特率误差、定时器 PSC/ARR、分压、LED 限流、RC、I²C 上拉和寄存器位查看。">
+  <link rel="canonical" href="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/tools.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="嵌入式驿站">
+  <meta property="og:title" content="工具台 · 嵌入式驿站">
+  <meta property="og:description" content="色环、波特率、定时器、分压和 I²C 上拉。算完就走，不用安装。">
+  <meta property="og:url" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/tools.html">
+  <meta property="og:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="工具台 · 嵌入式驿站">
+  <meta name="twitter:description" content="色环、波特率、定时器、分压和 I²C 上拉。">
+  <meta name="twitter:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch.png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="tools">
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html"><span class="seal" aria-hidden="true">驿</span><span class="brand-text"><strong>嵌入式驿站</strong><small>THE POST HOUSE</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav class="nav" id="site-nav">
+        <a data-nav="home" href="index.html">首页</a>
+        <a data-nav="tools" href="tools.html">工具</a>
+        <a data-nav="cheats" href="cheats.html">速查</a>
+        <a data-nav="market" href="market.html">华强北</a>
+        <a data-nav="daily" href="daily.html">每日题</a>
+        <a data-nav="jokes" href="jokes.html">段子</a>
+        <a data-nav="board" href="board.html">告示</a>
+        <a data-nav="about" href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+      <header class="page-head">
+        <p class="eyebrow">COUNTER 01</p>
+        <h1>工具台</h1>
+        <p class="lede">都在这页里算完。色环口诀：黑棕红橙黄绿蓝紫灰白，金是 5%，银是 10%。芯片相关的公式旁边写了适用范围。</p>
+      </header>
+      <div class="tool-tabs" role="tablist">
+        <button type="button" role="tab" data-tool="resistor" aria-selected="true">电阻色环</button>
+        <button type="button" role="tab" data-tool="baud" aria-selected="false">波特率</button>
+        <button type="button" role="tab" data-tool="timer" aria-selected="false">定时器</button>
+        <button type="button" role="tab" data-tool="bench" aria-selected="false">电路小算</button>
+        <button type="button" role="tab" data-tool="bits" aria-selected="false">看位</button>
+      </div>
+
+      <section class="tool-panel" id="tool-resistor">
+        <h2>电阻色环</h2>
+        <p>四环是两位有效数字，五环是三位。金、银只做倍乘或误差，不能当数字。</p>
+        <div class="seg">
+          <button type="button" data-bands="4" aria-pressed="true">四环</button>
+          <button type="button" data-bands="5" aria-pressed="false">五环</button>
+        </div>
+        <div class="band-row" id="band-row"></div>
+        <div class="resistor-body" id="resistor-body" aria-hidden="true"></div>
+        <p class="result" id="resistor-out"></p>
+        <form id="rev-form">
+          <div class="form-grid">
+            <label class="field">阻值数字
+              <input id="rev-value" type="number" min="0" step="any" value="4.7">
+            </label>
+            <label class="field">单位
+              <select id="rev-unit">
+                <option value="Ω">Ω</option>
+                <option value="kΩ" selected>kΩ</option>
+                <option value="MΩ">MΩ</option>
+              </select>
+            </label>
+            <label class="field">环数
+              <select id="rev-bands">
+                <option value="4" selected>四环</option>
+                <option value="5">五环</option>
+              </select>
+            </label>
+          </div>
+          <button class="btn btn-ink" type="submit">反查色环</button>
+        </form>
+        <p class="result" id="rev-out"></p>
+      </section>
+
+      <section class="tool-panel" id="tool-baud" hidden>
+        <h2>波特率误差</h2>
+        <p>按 STM32 参考手册的 USARTDIV 来算：过采样 16 时小数 4 位，过采样 8 时小数 3 位并且 BRR[3] 为 0。别的 UART 先核对寄存器定义。经验阈值是单边大约 2%，不是标准条款。</p>
+        <div class="form-grid">
+          <label class="field">外设时钟
+            <input id="baud-clk" type="number" min="0" step="any" value="72">
+          </label>
+          <label class="field">时钟单位
+            <select id="baud-clk-unit">
+              <option>Hz</option>
+              <option>kHz</option>
+              <option selected>MHz</option>
+            </select>
+          </label>
+          <label class="field">目标波特率
+            <input id="baud-rate" type="number" min="1" step="1" value="115200">
+          </label>
+          <label class="field">过采样
+            <select id="baud-over">
+              <option value="16" selected>16</option>
+              <option value="8">8</option>
+            </select>
+          </label>
+        </div>
+        <div class="chips" data-fill="baud-clk" data-unit="baud-clk-unit">
+          <button type="button" data-value="8" data-unit="MHz">8 MHz</button>
+          <button type="button" data-value="16" data-unit="MHz">16 MHz</button>
+          <button type="button" data-value="48" data-unit="MHz">48 MHz</button>
+          <button type="button" data-value="72" data-unit="MHz">72 MHz</button>
+          <button type="button" data-value="84" data-unit="MHz">84 MHz</button>
+          <button type="button" data-value="168" data-unit="MHz">168 MHz</button>
+        </div>
+        <div class="chips" data-fill="baud-rate">
+          <button type="button" data-value="9600">9600</button>
+          <button type="button" data-value="19200">19200</button>
+          <button type="button" data-value="38400">38400</button>
+          <button type="button" data-value="57600">57600</button>
+          <button type="button" data-value="115200">115200</button>
+          <button type="button" data-value="230400">230400</button>
+          <button type="button" data-value="460800">460800</button>
+          <button type="button" data-value="921600">921600</button>
+        </div>
+        <div id="baud-out"></div>
+      </section>
+
+      <section class="tool-panel" id="tool-timer" hidden>
+        <h2>定时器 PSC / ARR</h2>
+        <p>边沿对齐的更新频率：f = fCLK / ((PSC+1) × (ARR+1))。这里的时钟是已经进定时器的时钟。APB 预分频之后有没有再乘 2，看你那颗芯片的手册，本页不猜。</p>
+        <div class="form-grid">
+          <label class="field">定时器时钟
+            <input id="tim-clk" type="number" min="0" step="any" value="72">
+          </label>
+          <label class="field">单位
+            <select id="tim-clk-unit">
+              <option>Hz</option>
+              <option>kHz</option>
+              <option selected>MHz</option>
+            </select>
+          </label>
+          <label class="field">位宽
+            <select id="tim-bits">
+              <option value="16" selected>16 位</option>
+              <option value="32">32 位</option>
+            </select>
+          </label>
+          <label class="field">PSC
+            <input id="tim-psc" type="number" min="0" step="1" value="71">
+          </label>
+          <label class="field">ARR
+            <input id="tim-arr" type="number" min="0" step="1" value="999">
+          </label>
+          <label class="field">占空比 %
+            <input id="tim-duty" type="number" min="0" max="100" step="any" value="50">
+          </label>
+        </div>
+        <div id="tim-forward"></div>
+        <div id="pwm-out"></div>
+        <h3>反解一组分频</h3>
+        <div class="form-grid">
+          <label class="field">目标频率
+            <input id="tim-target" type="number" min="0" step="any" value="1">
+          </label>
+          <label class="field">单位
+            <select id="tim-target-unit">
+              <option>Hz</option>
+              <option selected>kHz</option>
+              <option>MHz</option>
+            </select>
+          </label>
+        </div>
+        <button class="btn btn-ink" id="tim-solve" type="button">求 PSC / ARR</button>
+        <div id="tim-solve-out"></div>
+      </section>
+
+      <section class="tool-panel" id="tool-bench" hidden>
+        <h2>电路小算</h2>
+        <p>分压默认上臂是 R1、下臂是 R2，输出从 R2 两端取出。改任何一个格子都会重算。</p>
+        <div class="form-grid">
+          <label class="field">Vin (V)<input id="div-vin" type="number" step="any" value="3.3"></label>
+          <label class="field">R1<input id="div-r1" type="number" min="0" step="any" value="20"></label>
+          <label class="field">R1 单位
+            <select id="div-r1-unit"><option>Ω</option><option selected>kΩ</option><option>MΩ</option></select>
+          </label>
+          <label class="field">R2<input id="div-r2" type="number" min="0" step="any" value="10"></label>
+          <label class="field">R2 单位
+            <select id="div-r2-unit"><option>Ω</option><option selected>kΩ</option><option>MΩ</option></select>
+          </label>
+          <label class="field">LED 电源 (V)<input id="led-vs" type="number" step="any" value="5"></label>
+          <label class="field">LED 正向压降 (V)<input id="led-vf" type="number" step="any" value="2"></label>
+          <label class="field">LED 电流 (mA)<input id="led-if" type="number" step="any" value="10"></label>
+          <label class="field">RC 的 R<input id="rc-r" type="number" min="0" step="any" value="1"></label>
+          <label class="field">R 单位
+            <select id="rc-r-unit"><option>Ω</option><option selected>kΩ</option><option>MΩ</option></select>
+          </label>
+          <label class="field">RC 的 C<input id="rc-c" type="number" min="0" step="any" value="100"></label>
+          <label class="field">C 单位
+            <select id="rc-c-unit"><option>F</option><option>µF</option><option selected>nF</option><option>pF</option></select>
+          </label>
+          <label class="field">dBm<input id="dbm" type="number" step="any" value="0"></label>
+          <label class="field">假设阻抗 (Ω)<input id="dbm-r" type="number" min="0" step="any" value="50"></label>
+          <label class="field">I²C VDD (V)<input id="i2c-vdd" type="number" step="any" value="3.3"></label>
+          <label class="field">VOL (V)<input id="i2c-vol" type="number" step="any" value="0.4"></label>
+          <label class="field">IOL (mA)<input id="i2c-iol" type="number" step="any" value="3"></label>
+          <label class="field">总线电容 (pF)<input id="i2c-cb" type="number" step="any" value="200"></label>
+          <label class="field">I²C 模式
+            <select id="i2c-mode">
+              <option value="standard" selected>标准 100 kHz</option>
+              <option value="fast">快速 400 kHz</option>
+              <option value="fastPlus">Fast-mode Plus 1 MHz</option>
+            </select>
+          </label>
+        </div>
+        <div id="bench-out"></div>
+      </section>
+
+      <section class="tool-panel" id="tool-bits" hidden>
+        <h2>看位</h2>
+        <p>给一个寄存器值，下面是低 32 位。点某一位会翻转它。位号从 0 数起，靠右是 bit 0。</p>
+        <label class="field">数值
+          <input id="bit-in" type="text" value="0xA5" spellcheck="false" autocomplete="off">
+        </label>
+        <p class="bad" id="bit-error"></p>
+        <div id="bit-meta"></div>
+        <div class="bit-grid" id="bit-grid"></div>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>嵌入式驿站 · 工具台</p>
+      <p class="fine">过客 <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">…</span></span> · 翻阅 <span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">…</span></span> · 目标 1000</p>
+      <p class="fine"><a href="index.html">回柜台</a> · <a href="about.html">关于</a></p>
+    </div>
+  </footer>
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script type="module" src="assets/site.js"></script>
+  <script type="module" src="assets/tools.js"></script>
+</body>
+</html>

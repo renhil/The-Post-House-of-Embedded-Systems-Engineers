@@ -1,0 +1,14 @@
+{
+  "name": "embedded-post-house",
+  "private": true,
+  "type": "module",
+  "description": "嵌入式驿站静态站",
+  "scripts": {
+    "check": "node scripts/selfcheck.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/build.mjs && python3 -m http.server 4173 --directory dist"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
