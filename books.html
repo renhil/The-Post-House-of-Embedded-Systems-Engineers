@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>驿站书房 · 嵌入式驿站</title>
+  <meta name="description" content="驿站书房收录十二本原文已进入公有领域的世界名著，每本一篇中文导读。每周在首页换一本。全文只链接公有领域来源。">
+  <link rel="canonical" href="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/books.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="嵌入式驿站">
+  <meta property="og:title" content="驿站书房 · 嵌入式驿站">
+  <meta property="og:description" content="十二本公有领域名著，每本一篇导读。每周换一本放在柜台上。">
+  <meta property="og:url" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/books.html">
+  <meta property="og:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="驿站书房 · 嵌入式驿站">
+  <meta name="twitter:description" content="十二本公有领域名著，每本一篇导读。">
+  <meta name="twitter:image" content="https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/assets/og.png">
+  <meta name="theme-color" content="#12100e">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch.png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="books">
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html"><span class="seal" aria-hidden="true">驿</span><span class="brand-text"><strong>嵌入式驿站</strong><small>THE POST HOUSE</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav class="nav" id="site-nav">
+        <a data-nav="home" href="index.html">首页</a>
+        <a data-nav="tools" href="tools.html">工具</a>
+        <a data-nav="cheats" href="cheats.html">速查</a>
+        <a data-nav="books" href="books.html">书房</a>
+        <a data-nav="market" href="market.html">华强北</a>
+        <a data-nav="daily" href="daily.html">每日题</a>
+        <a data-nav="jokes" href="jokes.html">段子</a>
+        <a data-nav="board" href="board.html">告示</a>
+        <a data-nav="about" href="about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap">
+      <header class="page-head">
+        <p class="eyebrow">LIBRARY · 公有领域</p>
+        <h1>驿站书房</h1>
+        <p class="lede">柜台上除了烙铁，还有十二本书。都是原文已经进入公有领域的世界名著，每本一篇驿站自己写的导读。每周换一本放在首页，同一周里大家看到的是同一本。</p>
+      </header>
+      <p class="note">导读不复制仍受版权保护的中文译本。想读全文，页面底部链到 Project Gutenberg、维基文库或中国哲学书电子化计划。前两个在中国大陆常常打不开，打不开也不影响导读。要加书，改 <code>data/books.json</code>，构建时会生成 <code>books/书名.html</code>。</p>
+      <section class="sheet">
+        <h2>如果不知道从哪本开始</h2>
+        <p>《化身博士》《时间机器》《爱丽丝梦游仙境》一个晚上能读完。《弗兰肯斯坦》和《平面国》适合一个周末。《沉思录》《道德经》《孙子兵法》按小节读。《白鲸》《堂吉诃德》《海底两万里》《西游记》是长途。书架上的顺序就是这条路径，每周一书则顺着这个顺序循环。</p>
+      </section>
+      <h2 class="section-title">架上的十二本</h2>
+      <div id="book-list" class="book-grid"><p class="empty">书架装订中…</p></div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>嵌入式驿站 · 书房</p>
+      <p class="fine">过客 <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">…</span></span> · 翻阅 <span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv">…</span></span> · 目标 1000</p>
+      <p class="fine"><a href="index.html">回柜台</a> · <a href="about.html">关于</a></p>
+    </div>
+  </footer>
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script type="module" src="assets/site.js"></script>
+</body>
+</html>

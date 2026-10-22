@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { assertBooks, renderBookPage } from "./render-books.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const dist = path.join(root, "dist");
@@ -22,6 +23,8 @@ const questions = readJson("questions.json");
 const jokes = readJson("jokes.json");
 const events = readJson("events.json");
 const markets = readJson("markets.json");
+const books = readJson("books.json");
+assertBooks(books);
 
 const qIds = new Set();
 if (!Array.isArray(questions.items) || questions.items.length < 30) {
@@ -57,6 +60,7 @@ const pages = [
   "daily.html",
   "jokes.html",
   "board.html",
+  "books.html",
   "about.html",
   "404.html",
 ];
@@ -106,10 +110,19 @@ function copyInto(relative) {
 for (const page of pages) copyInto(page);
 copyInto("assets");
 copyInto("data");
+fs.mkdirSync(path.join(dist, "books"), { recursive: true });
+const bookPages = books.items.map((book) => {
+  const relative = `books/${book.id}.html`;
+  const html = renderBookPage(book);
+  if (!html.includes("<title>") || !html.includes('rel="canonical"') || !html.includes("assets/og.png")) {
+    throw new Error(`${relative} 缺少 SEO 标记`);
+  }
+  fs.writeFileSync(path.join(dist, relative), html);
+  return relative;
+});
 fs.writeFileSync(path.join(dist, ".nojekyll"), "");
 
-const urls = pages
-  .filter((page) => page !== "404.html")
+const urls = [...pages.filter((page) => page !== "404.html"), ...bookPages]
   .map((page) => `  <url><loc>${page === "index.html" ? `${site}/` : `${site}/${page}`}</loc></url>`)
   .join("\n");
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;

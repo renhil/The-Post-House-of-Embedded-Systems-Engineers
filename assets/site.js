@@ -1,4 +1,4 @@
-import { formatDate, pickIndex } from "./calc.js";
+import { formatDate, pickIndex, pickWeekIndex } from "./calc.js";
 
 const SITE = "https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/";
 const page = document.body.dataset.page || "";
@@ -235,6 +235,40 @@ function bootMarkets() {
     root.textContent = "地点数据没有加载出来。";
   });
 }
+
+async function bootShelf() {
+  const list = document.querySelector("#book-list");
+  const week = document.querySelector("#week-book");
+  if (!list && !week) return;
+  const data = await loadJson("data/books.json");
+  const items = data.items || [];
+  const index = pickWeekIndex(new Date(), items.length);
+  const current = items[index];
+  if (week && current) {
+    week.querySelector("[data-field=title]").textContent = `《${current.title}》`;
+    week.querySelector("[data-field=line]").textContent = current.oneLiner;
+    week.querySelector("[data-field=meta]").textContent = `${current.author} · ${current.published}`;
+    const link = week.querySelector("[data-field=href]");
+    link.href = `books/${current.id}.html`;
+  }
+  if (list) {
+    list.innerHTML = items.map((book, bookIndex) => `
+      <a class="book-card${bookIndex === index ? " is-week" : ""}" href="books/${book.id}.html">
+        <span class="num">${String(bookIndex + 1).padStart(2, "0")}${bookIndex === index ? " · 本周" : ""}</span>
+        <strong>${escapeHtml(book.title)}</strong>
+        <em>${escapeHtml(book.originalTitle)}</em>
+        <span class="blurb">${escapeHtml(book.oneLiner)}</span>
+      </a>
+    `).join("");
+  }
+}
+
+bootShelf().catch(() => {
+  const list = document.querySelector("#book-list");
+  const title = document.querySelector("#week-book [data-field=title]");
+  if (list) list.innerHTML = `<p class="empty">书架没打开。请用本地服务器打开本站。</p>`;
+  if (title) title.textContent = "本周的书没取到。";
+});
 
 bootToday().catch(() => {
   document.querySelectorAll("[data-field=title], [data-field=q], [data-field=text]").forEach((node) => {
