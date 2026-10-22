@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { baiduHmSrc, injectBaiduAnalytics } from "./baidu.mjs";
 import { assertBooks, renderBookPage } from "./render-books.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -121,6 +122,32 @@ const bookPages = books.items.map((book) => {
   return relative;
 });
 fs.writeFileSync(path.join(dist, ".nojekyll"), "");
+
+function htmlFilesUnder(dir, found = []) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) htmlFilesUnder(full, found);
+    else if (entry.name.endsWith(".html")) found.push(full);
+  }
+  return found;
+}
+
+const htmlFiles = htmlFilesUnder(dist);
+if (htmlFiles.length < pages.length + books.items.length) {
+  throw new Error(`输出页面太少：${htmlFiles.length}`);
+}
+for (const file of htmlFiles) {
+  const relative = path.relative(dist, file);
+  const before = fs.readFileSync(file, "utf8");
+  const hadBusuanzi = before.includes("busuanzi.pure.mini.js");
+  const next = injectBaiduAnalytics(before, relative);
+  if (hadBusuanzi && !next.includes("busuanzi.pure.mini.js")) {
+    throw new Error(`${relative} 丢失了不蒜子`);
+  }
+  if (!next.includes(baiduHmSrc)) throw new Error(`${relative} 没有写入百度统计`);
+  fs.writeFileSync(file, next);
+}
+console.log(`baidu analytics → ${htmlFiles.length} pages`);
 
 const urls = [...pages.filter((page) => page !== "404.html"), ...bookPages]
   .map((page) => `  <url><loc>${page === "index.html" ? `${site}/` : `${site}/${page}`}</loc></url>`)
