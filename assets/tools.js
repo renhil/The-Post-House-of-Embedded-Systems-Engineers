@@ -53,6 +53,13 @@ tabs.forEach((tab) => {
   });
 });
 
+function openTool(name) {
+  const tab = [...tabs].find((item) => item.dataset.tool === name);
+  if (tab) tab.click();
+}
+openTool(location.hash.replace(/^#/, ""));
+window.addEventListener("hashchange", () => openTool(location.hash.replace(/^#/, "")));
+
 document.querySelectorAll(".chips").forEach((box) => {
   box.addEventListener("click", (event) => {
     const button = event.target.closest("button");

@@ -325,6 +325,18 @@ export function bitsOf(value, width = 32) {
   };
 }
 
+/** 取上海日历上的那一天，供构建时写进静态页。访客本地日期仍由浏览器计算。 */
+export function shanghaiDate(now = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(now);
+  const pick = (type) => Number(parts.find((part) => part.type === type).value);
+  return new Date(pick("year"), pick("month") - 1, pick("day"));
+}
+
 export function localDayNumber(date) {
   const day = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
   return Math.round((day - EPOCH_UTC) / 86400000);

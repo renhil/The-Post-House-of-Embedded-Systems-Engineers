@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    # 16:00 UTC = 00:00 Asia/Shanghai。重新构建后，首页 HTML 换成上海这一天的题。
+    - cron: "0 16 * * *"
 
 permissions:
   contents: read
@@ -35,7 +38,7 @@ jobs:
           path: dist
 
   deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     permissions:

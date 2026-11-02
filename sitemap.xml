@@ -8,6 +8,7 @@
   <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/jokes.html</loc></url>
   <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/board.html</loc></url>
   <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/books.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/counters.html</loc></url>
   <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/about.html</loc></url>
   <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/books/jekyll.html</loc></url>
   <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/books/time-machine.html</loc></url>
@@ -21,4 +22,45 @@
   <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/books/leagues.html</loc></url>
   <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/books/quixote.html</loc></url>
   <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/books/xiyouji.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/volatile-not-atomic.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/isr-short.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/uart-lsb.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/baud-error.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/i2c-pullup.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/i2c-stretch.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/spi-mode.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/spi-cs.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/can-term.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/open-drain.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/five-volt-tolerant.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/zero-ohm.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/decoupling.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/reset-cap.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/watchdog-debug.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/stack-overflow.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/struct-padding.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/endian.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/const-ram.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/printf-heisenbug.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/hardfault-first.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/priority-inversion.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/critical-vs-mutex.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/no-malloc.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/dma-cache.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/adc-sample.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/crystal-load.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/debounce.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/before-main.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/flash-erase.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/uart-idle.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/task-stack.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/ground-bounce.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/floating-pin.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/watchdog-where.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/q/flash-in-isr.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/resistor-color-code.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/stm32-baud.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/stm32-timer.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/i2c-pullup.html</loc></url>
+  <url><loc>https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/feed.xml</loc></url>
 </urlset>
