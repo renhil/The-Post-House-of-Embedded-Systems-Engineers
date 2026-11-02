@@ -93,6 +93,8 @@ async function bootToday() {
     qRoot.querySelector("[data-field=date]").textContent = dateText;
     qRoot.querySelector("[data-field=title]").textContent = question.q;
     qRoot.querySelector("[data-field=meta]").textContent = `${question.level} · ${question.tags.join(" / ")}`;
+    const slip = qRoot.querySelector("[data-field=slip]");
+    if (slip) slip.href = `q/${question.id}.html`;
   }
   if (jRoot) {
     jRoot.querySelector("[data-field=date]").textContent = dateText;
@@ -102,7 +104,7 @@ async function bootToday() {
   const copyToday = document.querySelector("#copy-today");
   if (copyToday) {
     copyToday.addEventListener("click", async () => {
-      await copyText(`【嵌入式驿站 · ${dateText}】\n题目：${question.q}\n段子：${joke.text}\n${SITE}`);
+      await copyText(`【嵌入式驿站 · ${dateText}】\n题目：${question.q}\n${SITE}q/${question.id}.html\n段子：${joke.text}`);
       toast("今日卡片已抄好，可以贴到群里");
     });
   }
@@ -117,8 +119,10 @@ async function bootToday() {
       document.querySelector("[data-field=a]").hidden = false;
       document.querySelector("#reveal").hidden = true;
     });
+    const slip = document.querySelector("#slip-link");
+    if (slip) slip.href = `q/${question.id}.html`;
     document.querySelector("#copy-q").addEventListener("click", async () => {
-      await copyText(`【嵌入式驿站每日一题 · ${dateText}】\n${question.q}\n\n${SITE}daily.html`);
+      await copyText(`【嵌入式驿站每日一题 · ${dateText}】\n${question.q}\n\n${SITE}q/${question.id}.html`);
       toast("题目已抄好");
     });
   }
@@ -128,7 +132,7 @@ async function bootToday() {
       <details${index === qIndex ? " open" : ""}>
         <summary><span class="tag">${escapeHtml(item.level)}</span>${escapeHtml(item.q)}</summary>
         <p>${escapeHtml(item.a)}</p>
-        <p class="fine">${item.tags.map(escapeHtml).join(" · ")}</p>
+        <p class="fine">${item.tags.map(escapeHtml).join(" · ")} · <a href="q/${escapeHtml(item.id)}.html">固定页</a></p>
       </details>
     `).join("");
   }

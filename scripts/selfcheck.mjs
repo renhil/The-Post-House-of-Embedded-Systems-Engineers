@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { indexNowKey, keyLocation, scheduleUrls } from "./indexnow.mjs";
 import {
   bandsFromOhms,
   baudSTM32,
@@ -9,6 +10,7 @@ import {
   ledResistor,
   localDayNumber,
   pickIndex,
+  shanghaiDate,
   pickWeekIndex,
   pwmCompare,
   rcLowpass,
@@ -107,5 +109,18 @@ assert.equal(pickWeekIndex(new Date(2026, 0, 1), 12), 0);
 assert.equal(pickWeekIndex(new Date(2026, 0, 8), 12), 1);
 assert.equal(pickWeekIndex(new Date(2026, 9, 22), 12), 6);
 assert.equal(pickWeekIndex(new Date(2025, 11, 31), 12), 11);
+
+const beforeMidnight = shanghaiDate(new Date("2026-11-01T15:30:00Z"));
+const afterMidnight = shanghaiDate(new Date("2026-11-01T16:30:00Z"));
+assert.equal(beforeMidnight.getFullYear(), 2026);
+assert.equal(beforeMidnight.getMonth(), 10);
+assert.equal(beforeMidnight.getDate(), 1);
+assert.equal(afterMidnight.getDate(), 2);
+
+assert.match(indexNowKey, /^[A-Za-z0-9-]{8,128}$/);
+assert.equal(keyLocation(), `https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/${indexNowKey}.txt`);
+const slips = scheduleUrls({ items: [{ id: "alpha" }, { id: "beta" }] });
+assert.equal(slips.length, 3);
+assert.ok(slips[2].endsWith(".html"));
 
 console.log("selfcheck ok");

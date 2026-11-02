@@ -2,7 +2,7 @@
 
 The Post House of Embedded Systems Engineers。给深圳的嵌入式和硬件工程师留的一座静态夜班柜台：每日一题、段子、能算的小工具、协议速查，以及一份不编价格的华强北备忘。
 
-全站中文。不加载 Google Fonts 或其他容易在国内打不开的 CDN。样式和脚本都在仓库里，只有访问计数用了不蒜子。
+全站中文。不加载 Google Fonts 或其他容易在国内打不开的 CDN。样式和脚本都在仓库里。访问计数用了不蒜子，另外在每个页面的 `</head>` 前放了百度统计；本地预览不向百度发请求。
 
 ## 上线地址
 
@@ -46,6 +46,9 @@ npm run preview
 | `jokes.html` | 按本地日期轮换的段子 |
 | `board.html` | 线下活动告示。默认是空的 |
 | `books.html` | 驿站书房。导读在 `data/books.json`，单页构建到 `dist/books/` |
+| `counters.html` | 专项柜台：色环、波特率、定时器、I²C 上拉。说明在 `data/counters.json`，单页构建到 `dist/` |
+| `q/<id>.html` | 每道题的固定页，构建生成，答案写在 HTML 里 |
+| `feed.xml` | 题、柜台和书房的订阅 |
 | `about.html` | 计数、投稿约定、本地预览 |
 
 计算器在 `assets/calc.js`，自检是 `npm run check`。
@@ -57,10 +60,29 @@ npm run preview
 - 活动：`data/events.json` 的 `events` 数组。`examples` 里的条目不会展示
 - 区域和档口：`data/markets.json`。真实档口要写 `asOf` 和 `source`，并把 `example` 设为 `false`
 - 书房：`data/books.json`。只收原文已进入公有领域的书，导读自己写，不要贴仍受版权保护的中文译本。`npm run build` 会生成 `dist/books/<id>.html` 并写进 sitemap
+- 题签：改 `data/questions.json` 后重新构建，会生成 `dist/q/<id>.html`
+- 专项柜台：说明在 `data/counters.json`。算例在 `scripts/render-counters.mjs`，要调用 `assets/calc.js`，不要手写一个对不上的数
 
 不要编造具体活动、商户和价格。器件参数以原厂手册为准，页面里的经验阈值都标了适用范围。
 
 活动也可以用 Issues 里的「投稿一个线下活动」模板。
+
+## 持续营业
+
+首页上的「今日题」「今日段子」「每周一书」在构建时按**上海日期**写进 HTML，搜索引擎不执行 JavaScript 也能看到正文。访客自己的浏览器仍按本地日期再校正一次。
+
+`.github/workflows/pages.yml` 在每天 16:00 UTC（上海时间 0 点）重新构建并部署。GitHub 若连续约 60 天没有仓库活动，会停掉定时任务；有一次 push，或在 Actions 里手动运行 Deploy GitHub Pages，就会恢复。手动运行和定时运行都会部署，拉取请求只构建、不部署。
+
+过客目标仍是 1000。能做的是让页面被找到、被单独转发：
+
+- 把今日卡片抄进群时，里面带的是这道题的固定地址，不是只会落到首页
+- 站点地图：<https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/sitemap.xml> ，同时写在 `robots.txt` 里
+- 订阅：<https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/feed.xml>
+- 部署成功后，Actions 自动把网址 POST 到 IndexNow（必应等）。密钥文件由构建放进站点根目录，不用在仓库里另设 Secret，也不用登录站长后台。每天零点只通知首页、每日题和当天那一题，避免把整站重复推一遍。百度搜索资源平台的提交需要登录，已经拿掉，不在这套流程里
+
+## 访问统计补充
+
+百度统计的站点脚本由 `scripts/baidu.mjs` 在构建时插入每个 HTML 的 `</head>` 之前。`localhost`、`127.0.0.1` 和 `[::1]` 不加载，避免预览污染数据。
 
 ## 访问统计
 
@@ -70,7 +92,7 @@ npm run preview
 <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 ```
 
-不需要注册。过客数是 `site_uv`，翻阅数是 `site_pv`。不蒜子是第三方，能看到访问；本站不设账号。脚本打不开时，其余页面仍然能用。
+不需要注册。过客数是 `site_uv`，翻阅数是 `site_pv`。不蒜子是第三方，能看到访问；本站不设账号。脚本打不开时，其余页面仍然能用。百度统计的说明见上面「访问统计补充」。
 
 ## 引流时可以怎么说
 

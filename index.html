@@ -24,6 +24,7 @@
   <link rel="icon" href="assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch.png">
   <link rel="stylesheet" href="assets/site.css">
+  <link rel="alternate" type="application/rss+xml" title="嵌入式驿站" href="feed.xml">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -65,7 +66,7 @@
         <div>
           <p class="eyebrow">SHENZHEN · EMBEDDED · NIGHT SHIFT</p>
           <h1>嵌入式驿站</h1>
-          <p class="lede">底层还在转，人可以先坐一会儿。这里给深圳的嵌入式和硬件工程师留了题、工具、速查、书房和段子。华强北的价格、档口和活动，没核实过的一律不写。</p>
+          <p class="lede">底层还在转，人可以先坐一会儿。这里给深圳的嵌入式和硬件工程师留了题、工具、速查、书房和段子。每道题有固定页，色环、波特率、定时器和 I²C 上拉各有一个专项柜台。华强北的价格、档口和活动，没核实过的一律不写。</p>
           <div class="hero-actions">
             <a class="btn btn-wax" href="daily.html">拆开今日的题</a>
             <a class="btn btn-ghost" href="tools.html">坐到工具台</a>
@@ -85,36 +86,37 @@
       <div class="term" aria-hidden="true">
         <div class="term-bar"><i class="dot dot-r"></i><i class="dot dot-y"></i><i class="dot dot-g"></i> root@posthouse:~</div>
         <p><span class="prompt">$</span> ./welcome.sh</p>
-        <p>柜台值守中 · 固件 v1.1.0 · 咖啡还热 · 书房开着</p>
+        <p>柜台值守中 · 固件 v1.2.0 · 题签开了 · 四个专项柜台</p>
       </div>
 
       <section class="today" aria-label="今日柜台">
         <article class="ticket" id="today-question">
           <p class="kicker">信件 · 每日一题</p>
-          <p class="ticket-meta" data-field="date">日期装订中</p>
-          <h2 data-field="title">正在翻今日的题目…</h2>
-          <p class="ticket-meta" data-field="meta"></p>
-          <p><a href="daily.html">去对答案</a></p>
+          <p class="ticket-meta" data-field="date"><!-- build:today-date --></p>
+          <h2 data-field="title"><!-- build:today-q --></h2>
+          <p class="ticket-meta" data-field="meta"><!-- build:today-meta --></p>
+          <p><a data-field="slip" href="<!-- build:today-href -->">去对答案</a></p>
         </article>
         <article class="ticket" id="today-joke">
           <p class="kicker">便签 · 今日段子</p>
-          <p class="ticket-meta" data-field="date"></p>
-          <h2 data-field="text">正在抽一张便签…</h2>
+          <p class="ticket-meta" data-field="date"><!-- build:today-joke-date --></p>
+          <h2 data-field="text"><!-- build:today-joke --></h2>
           <p><a href="jokes.html">整本都在这</a></p>
         </article>
       </section>
 
       <article class="ticket" id="week-book">
         <p class="kicker">书架 · 每周一书</p>
-        <p class="ticket-meta" data-field="meta">这一周还在抽书</p>
-        <h2 data-field="title">正在从书房抽出一本…</h2>
-        <p data-field="line"></p>
-        <p><a data-field="href" href="books.html">进驿站书房</a></p>
+        <p class="ticket-meta" data-field="meta"><!-- build:week-meta --></p>
+        <h2 data-field="title"><!-- build:week-title --></h2>
+        <p data-field="line"><!-- build:week-line --></p>
+        <p><a data-field="href" href="<!-- build:week-href -->">进驿站书房</a></p>
       </article>
 
       <h2 class="section-title">柜台上有什么</h2>
       <section class="doors">
         <a class="door" href="tools.html"><span class="num">01</span><strong>工具台</strong><span>色环、波特率误差、定时器 PSC/ARR、分压、LED、I²C 上拉、位查看。浏览器里算完就走。</span></a>
+        <a class="door" href="counters.html"><span class="num">08</span><strong>专项柜台</strong><span>色环、STM32 波特率、定时器和 I²C 上拉各写了一页：公式、适用范围，和一组可以对上的数。</span></a>
         <a class="door" href="cheats.html"><span class="num">02</span><strong>速查</strong><span>UART、I²C、SPI、CAN、电平和调试口。先把该想起来的想起来，再去翻手册。</span></a>
         <a class="door" href="market.html"><span class="num">03</span><strong>华强北备忘</strong><span>料单怎么写、到了怎么问、拿回来怎么看。不推荐档口，不报价格。</span></a>
         <a class="door" href="daily.html"><span class="num">04</span><strong>每日一题</strong><span>按日期轮换的练习题。不是任何公司的真题。</span></a>
@@ -127,11 +129,11 @@
       <section class="reasons">
         <article class="reason">
           <h3>题、段子和书会换</h3>
-          <p class="muted">题和段子过了零点就换。书房从 2026 年起每七天换一本，同一周大家看见的是同一本。</p>
+          <p class="muted">题和段子过了零点就换，每道题另外有一个不会变的地址，可以搜，也可以单独转发。书房从 2026 年起每七天换一本。</p>
         </article>
         <article class="reason">
           <h3>工具比收藏夹快</h3>
-          <p class="muted">色环和波特率这种东西，一个月用一次，每次都不想重装软件。</p>
+          <p class="muted">色环和波特率这种东西，一个月用一次，每次都不想重装软件。专项柜台把公式和例子放在能被搜到的页面上。</p>
         </article>
         <article class="reason">
           <h3>可以自己往上贴</h3>
@@ -146,7 +148,7 @@
     <div class="wrap">
       <p>嵌入式驿站 · The Post House of Embedded Systems Engineers</p>
       <p class="fine">人数记在上面那张柜台卡片上。计数由不蒜子提供，没有账号。</p>
-      <p class="fine"><a href="https://github.com/renhil/The-Post-House-of-Embedded-Systems-Engineers">GitHub 仓库</a> · <a href="about.html">关于与投稿</a> · MIT</p>
+      <p class="fine"><a href="https://github.com/renhil/The-Post-House-of-Embedded-Systems-Engineers">GitHub 仓库</a> · <a href="about.html">关于与投稿</a> · <a href="feed.xml">订阅</a> · MIT</p>
     </div>
   </footer>
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

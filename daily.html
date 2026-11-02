@@ -49,7 +49,7 @@
       <header class="page-head">
         <p class="eyebrow">COUNTER 04</p>
         <h1>每日一题</h1>
-        <p class="lede">用本地日期从题库里取一题，所以同一天打开的是同一封信。这些题是驿站写的练习，不是哪家公司的真题，也不是标准答卷。芯片行为以手册为准。</p>
+        <p class="lede">用本地日期从题库里取一题，所以同一天打开的是同一封信。每题还有一个固定页，答案写在页面上，方便检索。这些题是驿站写的练习，不是哪家公司的真题。芯片行为以手册为准。</p>
       </header>
       <article class="ticket" id="daily-root">
         <p class="kicker" data-field="date">日期装订中</p>
@@ -58,12 +58,13 @@
         <div class="inline-actions">
           <button class="btn btn-ink" id="reveal" type="button">看驿站的说法</button>
           <button class="btn btn-paper" id="copy-q" type="button">抄题目</button>
+          <a class="btn btn-ghost" id="slip-link" href="<!-- build:today-slip -->">这题的固定页</a>
         </div>
         <p data-field="a" hidden></p>
       </article>
       <h2 class="section-title">题库</h2>
       <p class="muted">今天的题默认展开。想加题，改 <code>data/questions.json</code>。</p>
-      <div id="q-archive"></div>
+      <div id="q-archive"><!-- build:q-archive --></div>
     </div>
   </main>
   <footer class="site-footer">

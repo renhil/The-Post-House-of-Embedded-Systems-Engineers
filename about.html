@@ -74,6 +74,8 @@
           <li><code>data/events.json</code> 告示板。</li>
           <li><code>data/markets.json</code> 华强北的区域和档口。</li>
           <li><code>data/books.json</code> 驿站书房。只加原文已进入公有领域的书。构建时会生成每本书的页面。</li>
+          <li><code>data/questions.json</code> 里的每题会生成 <code>q/&lt;id&gt;.html</code>。地址按题固定，不随日期变。</li>
+          <li><code>data/counters.json</code> 专项柜台的说明。算例写在 <code>scripts/render-counters.mjs</code>，必须调用 <code>assets/calc.js</code>。</li>
           <li><code>assets/calc.js</code> 计算器。改完跑 <code>npm run check</code>。</li>
         </ul>
       </section>
@@ -82,6 +84,11 @@
         <p>需要 Node 20 以上。不要直接双击 html，浏览器会拦住页面去读 json。</p>
         <pre class="sample">npm run preview</pre>
         <p>然后打开 <code>http://127.0.0.1:4173</code>。构建产物在 <code>dist/</code>，这个目录不进 git。上线时由 GitHub Actions 再构建一次。</p>
+      </section>
+      <section class="sheet">
+        <h2>怎么让人找得到</h2>
+        <p>每道题有固定页，四个常用计算各有一页说明。构建时按上海日期把当天的题、段子和本周的书写进首页，搜索引擎不跑脚本也能看到正文。合并到 main 之后，Actions 会在每天 0 点（上海）再构建并部署一次。</p>
+        <p>站点地图写在 <code>robots.txt</code> 里，订阅是 <code>feed.xml</code>。部署完成后，Actions 会把网址交给 IndexNow，不需要再登录站长后台。百度的站长提交要另外的账号，这里不接。过客目标仍是首页那张卡片上的 1000。</p>
       </section>
       <p class="fine">MIT License · 2026 renhil</p>
     </div>
