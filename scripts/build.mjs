@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { formatDate, pickIndex, pickWeekIndex, shanghaiDate } from "../assets/calc.js";
 import { baiduHmSrc, injectBaiduAnalytics } from "./baidu.mjs";
+import { indexNowKey } from "./indexnow.mjs";
 import { escapeHtml } from "./page.mjs";
 import { assertBooks, renderBookPage } from "./render-books.mjs";
 import { assertCounters, counterFeedItems, renderCounterPage } from "./render-counters.mjs";
@@ -241,5 +242,8 @@ fs.writeFileSync(path.join(dist, "sitemap.xml"), sitemap);
 fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap);
 fs.writeFileSync(path.join(dist, "robots.txt"), robots);
 fs.writeFileSync(path.join(root, "robots.txt"), robots);
+
+if (!/^[A-Za-z0-9-]{8,128}$/.test(indexNowKey)) throw new Error("IndexNow 密钥不合法");
+fs.writeFileSync(path.join(dist, `${indexNowKey}.txt`), indexNowKey);
 
 console.log(`build ok → ${dist}`);

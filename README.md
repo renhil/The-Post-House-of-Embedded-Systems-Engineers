@@ -76,9 +76,9 @@ npm run preview
 过客目标仍是 1000。能做的是让页面被找到、被单独转发：
 
 - 把今日卡片抄进群时，里面带的是这道题的固定地址，不是只会落到首页
-- 站点地图：<https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/sitemap.xml>
+- 站点地图：<https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/sitemap.xml> ，同时写在 `robots.txt` 里
 - 订阅：<https://renhil.github.io/The-Post-House-of-Embedded-Systems-Engineers/feed.xml>
-- 百度搜索资源平台需要仓库主人登录后提交一次站点地图。仓库里没有百度站长的登录权限
+- 部署成功后，Actions 自动把网址 POST 到 IndexNow（必应等）。密钥文件由构建放进站点根目录，不用在仓库里另设 Secret，也不用登录站长后台。每天零点只通知首页、每日题和当天那一题，避免把整站重复推一遍。百度搜索资源平台的提交需要登录，已经拿掉，不在这套流程里
 
 ## 访问统计补充
 

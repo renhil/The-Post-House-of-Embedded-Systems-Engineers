@@ -51,3 +51,15 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 通知 IndexNow
+        continue-on-error: true
+        run: node scripts/indexnow.mjs ${{ github.event_name == 'schedule' && '--schedule' || '' }}

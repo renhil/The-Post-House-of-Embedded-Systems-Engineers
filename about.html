@@ -88,7 +88,7 @@
       <section class="sheet">
         <h2>怎么让人找得到</h2>
         <p>每道题有固定页，四个常用计算各有一页说明。构建时按上海日期把当天的题、段子和本周的书写进首页，搜索引擎不跑脚本也能看到正文。合并到 main 之后，Actions 会在每天 0 点（上海）再构建并部署一次。</p>
-        <p>站点地图是 <code>sitemap.xml</code>，订阅是 <code>feed.xml</code>。百度搜索资源平台要仓库主人自己提交一次站点地图。过客目标仍是首页那张卡片上的 1000。</p>
+        <p>站点地图写在 <code>robots.txt</code> 里，订阅是 <code>feed.xml</code>。部署完成后，Actions 会把网址交给 IndexNow，不需要再登录站长后台。百度的站长提交要另外的账号，这里不接。过客目标仍是首页那张卡片上的 1000。</p>
       </section>
       <p class="fine">MIT License · 2026 renhil</p>
     </div>
